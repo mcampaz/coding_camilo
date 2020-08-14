@@ -10,6 +10,7 @@ type User {
     FirstName: String!
     LastName: String!
     fechaCreacion: String!
+    Rol: String!
 },
 
 input userInput {
