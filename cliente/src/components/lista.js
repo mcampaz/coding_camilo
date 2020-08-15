@@ -69,7 +69,7 @@ function Lista() {
                                     <td>{user.LastName}</td>
                                     <td>{user.Username}</td>
                                     <td>{user.Rol}</td>
-                                    <td><Example /><Button variant="danger" onClick={() =>  deleteRow(user)}>Del</Button></td>
+                                    <td><Example user={user}/><Button variant="danger" onClick={() =>  deleteRow(user)}>Del</Button></td>
                                 </tr>
                             ))}
                         </tbody>
