@@ -38,7 +38,7 @@ function Lista() {
     }
 
     refetch();
-    
+
     return (
         <Container>
             <header className="mt-2">
@@ -76,7 +76,6 @@ function Lista() {
             </section>
         </Container>
     )
-
 }
 
 export default Lista;
