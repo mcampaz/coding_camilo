@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { gql, useQuery, useMutation, NetworkStatus } from '@apollo/client';
+import Example from './editarUser';
 
 const MOSTRAR_USUARIO = gql`
     query{
@@ -37,6 +38,7 @@ function Lista() {
         eliminarUser({ variables: {id: obj._id } });
     }
 
+
     refetch();
 
     return (
@@ -44,6 +46,7 @@ function Lista() {
             <header className="mt-2">
                 <h2>CRUD Data Base</h2>
             </header>
+            
             <section className="mt-4">
                 <div className="row justify-content-center">
                     <div className="col-12">
@@ -66,7 +69,7 @@ function Lista() {
                                     <td>{user.LastName}</td>
                                     <td>{user.Username}</td>
                                     <td>{user.Rol}</td>
-                                    <td><Button variant="warning" className="mr-3">Edit</Button><Button variant="danger" onClick={() =>  deleteRow(user)}>Del</Button></td>
+                                    <td><Example /><Button variant="danger" onClick={() =>  deleteRow(user)}>Del</Button></td>
                                 </tr>
                             ))}
                         </tbody>
