@@ -11,6 +11,7 @@ type User {
     LastName: String!
     fechaCreacion: String!
     Rol: String!
+    updateDate: String
 },
 
 input userInput {
@@ -21,6 +22,14 @@ input userInput {
     Rol: String!
 }
 
+input updateInput {
+    _id: ID!
+    Username: String!   @constraint(minLength: 5, maxLength: 50)
+    FirstName: String!  @constraint(minLength: 5, maxLength: 50)
+    LastName: String!   @constraint(minLength: 5, maxLength: 50)
+    Rol: String!        @constraint(minLength: 5, maxLength: 50)
+}
+
 type RootQuery {
     usuarios: [User!]!
 }
@@ -28,6 +37,7 @@ type RootQuery {
 type RootMutation {
     registrarUser(userInput: userInput): User!
     eliminarUser(_id: String!): Boolean!
+    updateUser(updateInput: updateInput): Boolean!
 }
 
 schema {

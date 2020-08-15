@@ -50,6 +50,25 @@ const resolver = {
         }catch (err) {
             throw err;
         }
+    },
+
+    updateUser: async(args) => {
+        try {
+            const user = await User.findByIdAndUpdate({_id: args.updateInput._id}, 
+                { $set: { 
+                Username: args.updateInput.Username,
+                FirstName: args.updateInput.FirstName,
+                LastName: args.updateInput.LastName,
+                Rol: args.updateInput.Rol,
+                updateDate: new Date()
+            }});
+
+            console.log(user)
+
+            return true;
+        } catch (err) {
+            throw err;
+        }
     }
 }
 

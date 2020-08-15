@@ -25,6 +25,10 @@ var SquemaUser= new Schema({
     fechaCreacion: {
         type: Date,
         required: true
+    },
+    updateDate: {
+        type: Date,
+        required: false
     }
 });
 
