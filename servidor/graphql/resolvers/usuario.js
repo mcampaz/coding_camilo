@@ -54,6 +54,7 @@ const resolver = {
 
     updateUser: async(args) => {
         try {
+            let bool = false;
             const user = await User.findByIdAndUpdate({_id: args.updateInput._id}, 
                 { $set: { 
                 Username: args.updateInput.Username,
@@ -62,10 +63,15 @@ const resolver = {
                 Rol: args.updateInput.Rol,
                 updateDate: new Date()
             }});
+            
+            if(user){
+                bool = true;
+            } else {
+                throw new Error('Error al actualizar el usuario')
+            }
 
-            console.log(user)
+            return bool;
 
-            return true;
         } catch (err) {
             throw err;
         }
