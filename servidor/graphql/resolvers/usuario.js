@@ -34,6 +34,22 @@ const resolver = {
         } catch (err) {
             throw err;
         }
+    },
+
+    eliminarUser: async(args) => {
+        try {
+            let bool = false;
+            const user = await User.findById(args._id);
+            if(user){
+                const result = await User.deleteOne({_id: args._id});
+                if(result.ok === 1) bool = true;
+            } else {
+                throw new Error('No se pudo eliminar, el usuario no se encuentra en la base de datos');
+            }
+            return bool;
+        }catch (err) {
+            throw err;
+        }
     }
 }
 

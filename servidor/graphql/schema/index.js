@@ -27,6 +27,7 @@ type RootQuery {
 
 type RootMutation {
     registrarUser(userInput: userInput): User!
+    eliminarUser(_id: ID!): Boolean!
 }
 
 schema {
