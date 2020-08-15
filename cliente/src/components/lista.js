@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { gql, useQuery } from '@apollo/client';
+import { gql, useQuery, useMutation } from '@apollo/client';
 
 const MOSTRAR_USUARIO = gql`
     query{
@@ -18,11 +18,24 @@ const MOSTRAR_USUARIO = gql`
     }
 `;
 
+const ELIMINAR_USUARIO = gql`
+    mutation EliminarUser($id: String!){
+        eliminarUser(_id: $id)
+    }
+`;
+
 function Lista() {
 
     const { loading, error, data } = useQuery(MOSTRAR_USUARIO);
+    const [eliminarUser] = useMutation(ELIMINAR_USUARIO);
+
     if (loading) return 'Loading...';
     if (error) return `Error! ${error.message}`;
+
+
+    const deleteRow = (obj) => {
+        eliminarUser({ variables: {id: obj._id } });
+    }
   
     return (
         <Container>
@@ -46,12 +59,12 @@ function Lista() {
                         <tbody>
                             {data.usuarios.map((user, i) => (
                                 <tr key={i}>
-                                    <td>{i}</td>
+                                    <td className="font-weight-bold">{i}</td>
                                     <td>{user.FirstName}</td>
                                     <td>{user.LastName}</td>
                                     <td>{user.Username}</td>
                                     <td>{user.Rol}</td>
-                                    <td><Button variant="warning" className="mr-3">Edit</Button><Button variant="danger">Del</Button></td>
+                                    <td><Button variant="warning" className="mr-3">Edit</Button><Button variant="danger" onClick={() => deleteRow(user)}>Del</Button></td>
                                 </tr>
                              ))}
                         </tbody>
