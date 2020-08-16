@@ -5,12 +5,13 @@ const mongoose = require('mongoose');
 const graphqlResolver =  require('./graphql/resolvers/index');
 const graphqlSchema = require('./graphql/schema/index');
 const cors = require('cors');
+const isAuth = require('./middleware/is-auth');
 
 const app = express();
+
 app.use('*', cors());
 app.use(bodyParser.json());
-
-
+app.use(isAuth);
 app.use(function (req, res, next) {
 
   // Website you wish to allow to connect

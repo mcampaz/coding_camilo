@@ -2,7 +2,10 @@ const User = require('../../models/usuario');
 
 
 const resolver = {
-    usuarios: async() => {
+    usuarios: async(args, req) => {
+        if(!req.isAuth){
+            throw new Error('Unauthenticated');
+        }
         try {
             const usuarios = await User.find();
             return usuarios.map(user => {
@@ -16,7 +19,10 @@ const resolver = {
         
     },
 
-    registrarUser: async(args) => {
+    registrarUser: async(args, req) => {
+        if(!req.isAuth){
+            throw new Error('Unauthenticated');
+        }
         try {
             const user = await User.findOne({Username: args.userInput.Username});
             if(user){
@@ -39,7 +45,10 @@ const resolver = {
         }
     },
 
-    eliminarUser: async(args) => {
+    eliminarUser: async(args, req) => {
+        if(!req.isAuth){
+            throw new Error('Unauthenticated');
+        }
         try {
             let bool = false;
             const user = await User.findById(args._id);
@@ -55,7 +64,10 @@ const resolver = {
         }
     },
 
-    updateUser: async(args) => {
+    updateUser: async(args, req) => {
+        if(!req.isAuth){
+            throw new Error('Unauthenticated');
+        }
         try {
             let bool = false;
             const user = await User.findByIdAndUpdate({_id: args.updateInput._id}, 
