@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { gql, useMutation } from '@apollo/client';
+import Alert from 'react-bootstrap/Alert';
 
 const ACTUALIZAR_USUARIO = gql`
     mutation ActualizarUser($input: updateInput!){
@@ -17,6 +18,7 @@ function EditarUSer({user}) {
 
     const [updateUser] = useMutation(ACTUALIZAR_USUARIO);
 
+    const [error, setError] = useState();
     const [show, setShow] = useState(false);
     const [input, setInput] = useState({fields: {
         FirstName: '',
@@ -34,7 +36,8 @@ function EditarUSer({user}) {
 
     const handleClose = () => {
         inputDefault();      
-        setShow(false)
+        setShow(false);
+        setError('');
     };
 
     const handleShow = () => {
@@ -42,19 +45,23 @@ function EditarUSer({user}) {
         setShow(true)
     };   
 
-    const enviarForm =(e) => {
-      e.preventDefault();   
-      if(firstName.value && lastName.value && userName.value && rol.value) {
-        let input = {
-              _id: user._id,
-              Username: userName.value,
-              FirstName: firstName.value,
-              LastName: lastName.value,
-              Rol: rol.value
-            }
-        updateUser({ variables: { input: input } });
-        handleClose();
-      }
+    const enviarForm = async (e) => {
+      e.preventDefault();
+      try {
+        if(firstName.value && lastName.value && userName.value && rol.value) {
+          let input = {
+                _id: user._id,
+                Username: userName.value,
+                FirstName: firstName.value,
+                LastName: lastName.value,
+                Rol: rol.value
+              }
+          await updateUser({ variables: { input: input } });
+          handleClose();
+        }
+      } catch (err) {
+        setError(err);
+      }        
     }
 
     return (
@@ -97,6 +104,7 @@ function EditarUSer({user}) {
                 </Button>
             </div>
             </Form>
+            {error ? <Alert className="mt-3" variant="danger">Error al guardar en la Base de Datos</Alert> : ''}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
