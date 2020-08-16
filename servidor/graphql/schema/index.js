@@ -14,6 +14,14 @@ type User {
     updateDate: String
 },
 
+type AuthData {
+    UserID: String!
+    Username: String!
+    Rol: String!
+    Token: String!
+    TokenSpiration: Int!
+}
+
 input userInput {
     Username: String!   @constraint(minLength: 5, maxLength: 50)
     Password: String!   @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 15)
@@ -30,8 +38,14 @@ input updateInput {
     Rol: String!        @constraint(minLength: 5, maxLength: 50)
 }
 
+input loginInput {
+    Username: String!   @constraint(minLength: 5, maxLength: 50)
+    Password: String!   @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 15)
+}
+
 type RootQuery {
     usuarios: [User!]!
+    login(loginInput: loginInput): AuthData!
 }
 
 type RootMutation {
