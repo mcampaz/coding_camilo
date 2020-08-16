@@ -18,19 +18,22 @@ const resolver = {
 
     registrarUser: async(args) => {
         try {
-
-            const usuario = new User({
-                Username: args.userInput.Username,
-                Password: args.userInput.Password,
-                FirstName: args.userInput.FirstName,
-                LastName: args.userInput.LastName,
-                Rol: args.userInput.Rol,
-                fechaCreacion: new Date()
-            })
-            
-            const result = await usuario.save();
-            return {...result._doc};
-
+            const user = await User.findOne({Username: args.userInput.Username});
+            if(user){
+                throw new Error('El nombre de usuario ya se encuentra registrado.');
+            } else {
+                const usuario = new User({
+                    Username: args.userInput.Username,
+                    Password: args.userInput.Password,
+                    FirstName: args.userInput.FirstName,
+                    LastName: args.userInput.LastName,
+                    Rol: args.userInput.Rol,
+                    fechaCreacion: new Date()
+                }); 
+    
+                const result = await usuario.save();
+                return {...result._doc};
+            } 
         } catch (err) {
             throw err;
         }
