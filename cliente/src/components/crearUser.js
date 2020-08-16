@@ -3,30 +3,56 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { gql, useMutation } from '@apollo/client';
+import Alert from 'react-bootstrap/Alert';
+
+const CREAR_USUARIO = gql`
+    mutation RegistrarUser($input: userInput!){
+        registrarUser(userInput: $input){
+            Username
+        }
+    }
+`;
 
 function CrearUSer() {
 
     let firstName, lastName, userName, rol, password;
-    
+
+    const [registrarUser] = useMutation(CREAR_USUARIO);
     const [show, setShow] = useState(false);
+    const [error, setError] = useState();
 
     const handleClose = () => {     
-        setShow(false)
+        setShow(false);
+        setError('');
     };
 
     const handleShow = () => {
         setShow(true)
     };   
 
-    const enviarForm =(e) => {
-      e.preventDefault();
-      if(firstName.value && lastName.value && userName.value && (rol.value && rol.value !== 'DEFAULT') && password) {
-        handleClose();
-      }
+    const enviarForm = async (e) => {
+        e.preventDefault();
+        try {           
+            if(firstName.value && lastName.value && userName.value && (rol.value && rol.value !== 'DEFAULT') && password.value) {
+                let input = {
+                        Username: userName.value,
+                        Password: password.value,
+                        FirstName: firstName.value,
+                        LastName: lastName.value,
+                        Rol: rol.value,
+                };
+
+                await registrarUser({ variables: { input: input } });
+                handleClose();
+            }
+        } catch (err) {
+            setError(err);
+        }
     }
 
     return (
-      <>
+      <>        
         <Button className="mr-2" variant="info" onClick={handleShow}>
           New User
         </Button>
@@ -70,6 +96,7 @@ function CrearUSer() {
                 </Button>
             </div>
             </Form>
+            {error ? <Alert className="mt-3" variant="danger">Error al guardar en la Base de Datos</Alert> : ''}
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
