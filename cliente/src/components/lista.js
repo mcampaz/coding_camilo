@@ -27,19 +27,15 @@ const ELIMINAR_USUARIO = gql`
 
 function Lista() {
 
-    const { loading, error, data, refetch, networkStatus } = useQuery(MOSTRAR_USUARIO);
+    const { loading, error, data, networkStatus } = useQuery(MOSTRAR_USUARIO, {pollInterval: 500});
     const [eliminarUser] = useMutation(ELIMINAR_USUARIO)
 
     if (loading) return 'Loading...'
     if (error) return `Error! ${error.message}`
-    if (networkStatus === NetworkStatus.refetch) return 'Refetching!';
  
     const deleteRow = (obj) => {
         eliminarUser({ variables: {id: obj._id } });
     }
-
-
-    refetch();
 
     return (
         <Container>
