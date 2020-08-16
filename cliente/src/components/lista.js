@@ -3,8 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
-import { gql, useQuery, useMutation, NetworkStatus } from '@apollo/client';
-import Example from './editarUser';
+import { gql, useQuery, useMutation } from '@apollo/client';
+import EditUser from './editarUser';
+import NewUser from './crearUser';
 
 const MOSTRAR_USUARIO = gql`
     query{
@@ -27,7 +28,7 @@ const ELIMINAR_USUARIO = gql`
 
 function Lista() {
 
-    const { loading, error, data, networkStatus } = useQuery(MOSTRAR_USUARIO, {pollInterval: 500});
+    const { loading, error, data } = useQuery(MOSTRAR_USUARIO, {pollInterval: 500});
     const [eliminarUser] = useMutation(ELIMINAR_USUARIO)
 
     if (loading) return 'Loading...'
@@ -41,10 +42,11 @@ function Lista() {
         <Container>
             <header className="mt-2">
                 <h2>CRUD Data Base</h2>
-            </header>
-            
+            </header>            
             <section className="mt-4">
-                <div className="row justify-content-center">
+                
+                <NewUser />
+                <div className="row justify-content-center mt-3">
                     <div className="col-12">
                     <Table hover>
                         <thead>
@@ -65,13 +67,13 @@ function Lista() {
                                     <td>{user.LastName}</td>
                                     <td>{user.Username}</td>
                                     <td>{user.Rol}</td>
-                                    <td><Example user={user}/><Button variant="danger" onClick={() =>  deleteRow(user)}>Del</Button></td>
+                                    <td><EditUser user={user}/><Button variant="danger" onClick={() =>  deleteRow(user)}>Del</Button></td>
                                 </tr>
                             ))}
                         </tbody>
                         </Table>
                     </div>
-                </div>
+                </div>                
             </section>
         </Container>
     )
