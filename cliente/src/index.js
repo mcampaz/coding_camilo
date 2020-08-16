@@ -2,9 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './index.css';
-import App from './components/lista';
 import * as serviceWorker from './serviceWorker';
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+import App from './components/lista';
+import Login from './components/login';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -16,7 +18,8 @@ ReactDOM.render(
   <ApolloProvider client={client}>
     <Router>
       <div>
-          <Route exact path='/' component={App} />         
+          <Route exact path='/' component={App} />
+          <Route exact path='/login' component={Login} />        
       </div>
     </Router>
   </ApolloProvider>,
