@@ -3,9 +3,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import { gql, useMutation } from '@apollo/client';
 
+const ACTUALIZAR_USUARIO = gql`
+    mutation ActualizarUser($input: updateInput!){
+      updateUser(updateInput: $input)
+    }
+`;
 
-function Example({user}) {
+function EditarUSer({user}) {
+
+    let firstName, lastName, userName, rol;
+
+    const [updateUser] = useMutation(ACTUALIZAR_USUARIO);
 
     const [show, setShow] = useState(false);
     const [input, setInput] = useState({fields: {
@@ -26,9 +36,26 @@ function Example({user}) {
         inputDefault();      
         setShow(false)
     };
+
     const handleShow = () => {
         inputDefault();
-        setShow(true)};   
+        setShow(true)
+    };   
+
+    const enviarForm =(e) => {
+      e.preventDefault();   
+      if(firstName.value && lastName.value && userName.value && rol.value) {
+        let input = {
+              _id: user._id,
+              Username: userName.value,
+              FirstName: firstName.value,
+              LastName: lastName.value,
+              Rol: rol.value
+            }
+        updateUser({ variables: { input: input } });
+        handleClose();
+      }
+    }
 
     return (
       <>
@@ -41,22 +68,22 @@ function Example({user}) {
             <Modal.Title>Edit User</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <Form>
+          <Form onSubmit={e => enviarForm(e)}>
             <Form.Group controlId="formFirstName">
                 <Form.Label>First Name</Form.Label>
-                <Form.Control defaultValue={input.fields.FirstName} onChange={e => setInput({fields: {FirstName: e.target.value}})} type="text" placeholder="Enter FirstName" />
+                <Form.Control ref={(node) => {firstName = node}} defaultValue={input.fields.FirstName} onChange={e =>setInput({fields: {FirstName: e.target.value}})} type="text" placeholder="Enter FirstName" />
             </Form.Group>
             <Form.Group controlId="formLastName">
                 <Form.Label>Last Name</Form.Label>
-                <Form.Control defaultValue={input.fields.LastName} onChange={e => setInput({fields: {LastName: e.target.value}})} type="text" placeholder="Enter LastName" />
+                <Form.Control ref={(node) => {lastName = node}} defaultValue={input.fields.LastName} onChange={e => setInput({fields: {LastName: e.target.value}})} type="text" placeholder="Enter LastName" />
             </Form.Group>
             <Form.Group controlId="formUserName">
                 <Form.Label>User Name</Form.Label>
-                <Form.Control defaultValue={input.fields.Username} onChange={e => setInput({fields: {Username: e.target.value}})} type="text" placeholder="Enter UserName" />
+                <Form.Control ref={(node) => {userName = node}} defaultValue={input.fields.Username} onChange={e => setInput({fields: {Username: e.target.value}})} type="text" placeholder="Enter UserName" />
             </Form.Group>
             <Form.Group controlId="formSelectRol">
                 <Form.Label>Rol</Form.Label>
-                <Form.Control as="select" defaultValue={input.fields.Rol} >                    
+                <Form.Control ref={(node) => {rol = node}} as="select" defaultValue={input.fields.Rol} onChange={e => setInput({fields: {Rol: e.target.value}})} >                    
                     <option value="Administrador">Administrador</option>
                     <option value="Gerente">Gerente</option>
                     <option value="Inventoria">Inventoria</option>
@@ -81,4 +108,4 @@ function Example({user}) {
     );
   }
   
-export default Example;
+export default EditarUSer;
