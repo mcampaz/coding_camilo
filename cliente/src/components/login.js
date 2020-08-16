@@ -7,6 +7,8 @@ import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 
 function Login() {
+  document.body.style = "background: #f7f7f7;";
+
   const mystyle = {
     color: "black",
     backgroundColor: "white",
@@ -39,7 +41,7 @@ function Login() {
                     className="mt-5 mb-2"
                     block
                   >
-                    Submit
+                    Login
                   </Button>
 
                   <Form.Group controlId="formLinkRegister">
