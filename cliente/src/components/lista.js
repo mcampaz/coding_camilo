@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import { gql, useQuery, useMutation } from '@apollo/client';
 import EditUser from './editarUser';
 import NewUser from './crearUser';
+import Navbar from './navBar'
 
 const MOSTRAR_USUARIO = gql`
     query{
@@ -39,6 +40,8 @@ function Lista() {
     }
 
     return (
+        <>
+        <Navbar />
         <Container>
             <header className="mt-2">
                 <h2>CRUD Data Base</h2>
@@ -76,6 +79,7 @@ function Lista() {
                 </div>                
             </section>
         </Container>
+        </>
     )
 }
 

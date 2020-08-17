@@ -10,6 +10,7 @@ import AuthContext from "../context/auth-context";
 import App from "./lista";
 import Login from "./login";
 import Register from "./register";
+import PaginaPrincipal from './paginaPrincipal';
 
 export default class AppMain extends Component {
 
@@ -38,16 +39,18 @@ export default class AppMain extends Component {
     return (
       <Router>
         <AuthContext.Provider
-          value={{ token: this.state.token, userID: this.state.userID, Rol: this.state.Rol, login: this.login }}
+          value={{ token: this.state.token, userID: this.state.userID, Rol: this.state.Rol, login: this.login, logout: this.logout }}
         >
           <Switch>
             {!this.state.token && <Redirect from="/" to="/login" exact />}
             {!this.state.token && <Redirect from="/users" to="/login" exact />}
-            {this.state.token && <Redirect from="/login" to="/users" exact />}
-            {this.state.token && <Redirect from="/" to="/users" exact />}
+            {!this.state.token && <Redirect from="/paginaPrincipal" to="/login" exact />}
+            {this.state.token && <Redirect from="/login" to="/paginaPrincipal" exact />}
+
             {!this.state.token && <Route exact path="/login" component={Login} />}
-            {!this.state.token && <Route exact path="/register" component={Register} />}
-            {this.state.token && <Route exact path="/users" component={App} />}
+            {!this.state.token && <Route path="/register" component={Register} />}
+            {this.state.token && this.state.Rol ==="Administrador" && <Route path="/users" component={App} />}
+            {this.state.token && <Route path="/paginaPrincipal" component={PaginaPrincipal} />}
           </Switch>
         </AuthContext.Provider>
       </Router>
