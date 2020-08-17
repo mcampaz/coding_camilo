@@ -32,6 +32,28 @@ const resolver = {
         }catch (err) {
             throw err;
         }
+    },
+
+    register: async(args) => {
+        try {
+            const username = await User.findOne({Username: args.registerInput.Username});
+            if(username){
+                throw new Error('Already username exist');
+            } else {
+                const usuario = new User({
+                    Username: args.registerInput.Username,
+                    Password: args.registerInput.Password,
+                    FirstName: args.registerInput.FirstName,
+                    LastName: args.registerInput.LastName,
+                    Rol: "Cliente",
+                    fechaCreacion: new Date()
+                });     
+                const result = await usuario.save();
+                return {...result._doc};
+            }
+        } catch (err) {
+            throw err;
+        }
     }
 }
 
