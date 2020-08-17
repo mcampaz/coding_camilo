@@ -7,6 +7,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 
 import App from './components/lista';
 import Login from './components/login';
+import Register from './components/register';
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -19,7 +20,8 @@ ReactDOM.render(
     <Router>
       <Switch>
           <Redirect from="/" to="/login" exact />
-          <Route exact path='/login' component={Login} /> 
+          <Route exact path='/login' component={Login} />
+          <Route exact path='/register' component={Register} /> 
           <Route exact path='/users' component={App} />  
       </Switch>
     </Router>

@@ -25,14 +25,14 @@ function Login() {
               <Card.Body>
                 <Card.Title className="text-center">Login</Card.Title>
                 <Form>
-                  <Form.Group controlId="formBasicEmail">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" />
+                  <Form.Group controlId="formUserName">
+                    <Form.Label>User Name</Form.Label>
+                    <Form.Control type="text" placeholder="Enter user name" required/>
                   </Form.Group>
 
-                  <Form.Group controlId="formBasicPassword">
+                  <Form.Group controlId="formPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" />
+                    <Form.Control type="password" placeholder="Password" required/>
                   </Form.Group>
 
                   <Button
@@ -47,7 +47,7 @@ function Login() {
                   <Form.Group controlId="formLinkRegister">
                     <Form.Text className="text-muted">
                       Don't have account?{" "}
-                      <Link to="/">create a new account</Link>
+                      <Link to="/register">create a new account</Link>
                     </Form.Text>
                   </Form.Group>
                 </Form>
