@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
@@ -16,6 +16,48 @@ function Login() {
     borderRadius: "20px",
   };
 
+  let userName, password;
+  
+  const enviarForm = async (e) => {
+    e.preventDefault();
+    try {
+      if(!userName.value || !password.value){
+        return;
+      } else {
+        
+        const LOGIN = {
+          query: `
+          query {
+              login(loginInput: {
+                Username:"${userName.value}",
+                Password: "${password.value}"
+              }){
+                UserID,
+                Username,
+                Token,
+                TokenSpiration
+              }
+          }`
+        };
+
+        const result = await fetch('http://localhost:4000/graphql',  { 
+          method: 'POST',
+          body: JSON.stringify(LOGIN),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if(result.status === 200 ){
+         console.log (result.json());
+        }
+       
+      }
+    } catch (err) {
+
+    }
+  };
+
   return (
     <Container>
       <section className="mt-5">
@@ -24,15 +66,15 @@ function Login() {
             <Card style={mystyle}>
               <Card.Body>
                 <Card.Title className="text-center">Login</Card.Title>
-                <Form>
+                <Form onSubmit={(e) => enviarForm(e)}>
                   <Form.Group controlId="formUserName">
                     <Form.Label>User Name</Form.Label>
-                    <Form.Control type="text" placeholder="Enter user name" required/>
+                    <Form.Control ref={(node) => {userName = node}} type="text" placeholder="Enter user name" required/>
                   </Form.Group>
 
                   <Form.Group controlId="formPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" required/>
+                    <Form.Control ref={(node) => {password = node}} type="password" placeholder="Password" required/>
                   </Form.Group>
 
                   <Button
