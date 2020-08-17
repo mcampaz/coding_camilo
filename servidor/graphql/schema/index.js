@@ -24,29 +24,29 @@ type AuthData {
 
 input userInput {
     Username: String!   @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 50)
-    Password: String!   @constraint(minLength: 5, maxLength: 15)
-    FirstName: String!  @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 50)
-    LastName: String!   @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 50)
-    Rol: String!        @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 50)
+    Password: String!   @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 15)
+    FirstName: String!  @constraint(minLength: 5, maxLength: 50)
+    LastName: String!   @constraint(minLength: 5, maxLength: 50)
+    Rol: String!        @constraint(minLength: 5, maxLength: 50)
 }
 
 input updateInput {
     _id: ID!
     Username: String!   @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 50)
-    FirstName: String!  @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 50)
-    LastName: String!   @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 50)
+    FirstName: String!  @constraint(minLength: 5, maxLength: 50)
+    LastName: String!   @constraint(minLength: 5, maxLength: 50)
     Rol: String!        @constraint(minLength: 5, maxLength: 50)
 }
 
 input loginInput {
     Username: String!   @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 50)
-    Password: String!   @constraint(minLength: 5, maxLength: 15)
+    Password: String!   @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 15)
 }
 
 input registerInput {
     Username: String!   @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 50)
-    FirstName: String!  @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 50)
-    LastName: String!   @constraint(pattern: "^[0-9a-zA-Z]*$", minLength: 5, maxLength: 50)
+    FirstName: String!  @constraint(minLength: 5, maxLength: 50)
+    LastName: String!   @constraint(minLength: 5, maxLength: 50)
     Password: String!   @constraint(minLength: 5, maxLength: 15)
 }
 

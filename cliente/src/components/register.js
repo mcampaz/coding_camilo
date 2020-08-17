@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { gql, useMutation } from "@apollo/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Container from "react-bootstrap/Container";
 import Form from "react-bootstrap/Form";
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
+import { useHistory } from "react-router-dom";
+
+const REGISTRAR_USUARIO = gql`
+  mutation Register($input: registerInput!) {
+    register(registerInput: $input){
+        Username
+    }
+  }
+`;
 
 function Register() {
   document.body.style = "background: #f7f7f7;";
@@ -18,8 +28,10 @@ function Register() {
   };
 
   let firstName, lastName, userName, password;
+  let history = useHistory();
   const [error, setError] = useState();
   const [show, setShow] = useState(false);
+  const [register] = useMutation(REGISTRAR_USUARIO);
 
   const enviarForm = async (e) => {
     e.preventDefault();
@@ -36,7 +48,9 @@ function Register() {
           LastName: lastName.value,
           Password: password.value,
         };
-        console.log(input);
+
+        await register({ variables: { input: input } });
+        history.push("/login");
       }
     } catch (err) {
       setError(err);
