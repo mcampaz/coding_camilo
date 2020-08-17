@@ -62,7 +62,8 @@ export default class Login extends Component {
                 resultPromise.data.login.UserID,
                 resultPromise.data.login.Rol,
                 resultPromise.data.TokenSpiration
-              );
+              );              
+              localStorage.setItem('token', resultPromise.data.login.Token);
             }
           } else {
             throw new Error("Failed");
