@@ -14,8 +14,7 @@ const navBar = (props) => {
       {(context) => {
         
         return (
-          <Navbar variant="light" bg="light">
-              {console.log(context)}
+          <Navbar variant="dark" bg="dark">
             <Navbar.Brand>
               <NavLink to="/paginaPrincipal" >
                 <img
@@ -25,7 +24,7 @@ const navBar = (props) => {
                   height="30"
                   className="d-inline-block align-top"
                 />{" "}
-                Aplication
+                <strong>ACME company inc</strong>
               </NavLink>
             </Navbar.Brand>
             <Nav className="mr-auto">

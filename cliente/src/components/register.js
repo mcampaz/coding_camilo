@@ -18,7 +18,6 @@ const REGISTRAR_USUARIO = gql`
 `;
 
 function Register() {
-  document.body.style = "background: #f7f7f7;";
 
   const mystyle = {
     color: "black",
