@@ -33,6 +33,7 @@ export default class AppMain extends Component {
         userID: null,
         Rol: null
       });
+      localStorage.removeItem('token');
   };
 
   render() {
@@ -51,6 +52,10 @@ export default class AppMain extends Component {
             {!this.state.token && <Route path="/register" component={Register} />}
             {this.state.token && this.state.Rol ==="Administrador" && <Route path="/users" component={App} />}
             {this.state.token && <Route path="/paginaPrincipal" component={PaginaPrincipal} />}
+            {this.state.token && <Route path="/cliente" component={PaginaPrincipal} />}
+            {this.state.token && <Route path="/gerente" component={PaginaPrincipal} />}
+            {this.state.token && <Route path="/vendedor" component={PaginaPrincipal} />}
+            {this.state.token && <Route path="/inventoria" component={PaginaPrincipal} />}
           </Switch>
         </AuthContext.Provider>
       </Router>
