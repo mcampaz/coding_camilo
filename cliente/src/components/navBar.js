@@ -32,7 +32,7 @@ const navBar = (props) => {
               {context.token && context.Rol === "Cliente" && (<NavLink to="/cliente">Cliente</NavLink>)}
               {context.token && context.Rol === "Inventoria" && (<NavLink to="/inventoria">Inventoria</NavLink>)}
               {context.token && context.Rol === "Gerente" && (<NavLink to="/gerente">Gerente</NavLink>)}
-              {context.token && context.Rol === "vendedor" && (<NavLink to="/vendedor">vendedor</NavLink>)}
+              {context.token && context.Rol === "Vendedor" && (<NavLink to="/vendedor">vendedor</NavLink>)}
             </Nav>
             <Nav>
               {!context.token && <NavLink to="/login">Login</NavLink>}
