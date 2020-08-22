@@ -3,6 +3,14 @@ const { constraintDirective, constraintDirectiveTypeDefs } = require('graphql-co
 
 const typeDefs = ` 
 
+type Servicio {
+    _id: ID!
+    Title: String!
+    Description: String!
+    fechaCreacion: String!
+    updateDate: String
+}
+
 type User {
     _id: ID!
     Username: String!
@@ -50,6 +58,11 @@ input registerInput {
     Password: String!   @constraint(minLength: 5, maxLength: 15)
 }
 
+input createServicioInput {
+    Title: String!          @constraint(minLength: 5, maxLength: 50)
+    Description: String!    @constraint(minLength: 5, maxLength: 255)
+}
+
 type RootQuery {
     usuarios: [User!]!
     login(loginInput: loginInput): AuthData!
@@ -60,6 +73,7 @@ type RootMutation {
     eliminarUser(_id: String!): Boolean!
     updateUser(updateInput: updateInput): Boolean!
     register(registerInput: registerInput): User!
+    createServicio(createServicioInput: createServicioInput): Servicio!
 }
 
 schema {
