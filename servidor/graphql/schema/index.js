@@ -66,6 +66,7 @@ input createServicioInput {
 type RootQuery {
     usuarios: [User!]!
     login(loginInput: loginInput): AuthData!
+    servicios: [Servicio!]!
 }
 
 type RootMutation {
