@@ -43,8 +43,8 @@ function Lista() {
         <>
         <Navbar />
         <Container>
-            <header className="mt-2">
-                <h2>CRUD Data Base</h2>
+            <header className="mt-2 text-center">
+                <h2>Manage Users</h2>
             </header>            
             <section className="mt-4">
                 
