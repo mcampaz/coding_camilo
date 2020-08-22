@@ -32,7 +32,7 @@ export default class PaginaPrincipal extends Component {
                 <section className="mt-4">
                   <div className="row">
                     <div className="col-4">
-                      <Link to="/" className="text-link">
+                      <Link to="/servicios" className="text-link">
                         <Card className="animacionBtn">
                           <Card.Img
                             variant="top"
