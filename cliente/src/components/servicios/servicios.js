@@ -9,6 +9,7 @@ import ImgServicios from "../../assets/img/serviciosHeader.jpg";
 import { gql, useQuery, useMutation } from "@apollo/client";
 
 import CrearServicio from "./crearServicio";
+import EditarServicion from "./editarServicios";
 
 const MOSTRAR_SERVICIOS = gql`
   query {
@@ -81,9 +82,7 @@ function Servicios() {
                             <Card.Header as="h5">
                               <div className="row justify-content-end">
                                 <div className="col-4 text-right">
-                                  <Button variant="warning" className="mr-1">
-                                    Editar
-                                  </Button>
+                                  <EditarServicion  servicio = {servicio}/>
                                   <Button
                                     variant="danger"
                                     onClick={(e) => eliminarServicio(servicio)}
