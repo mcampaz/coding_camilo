@@ -15,7 +15,7 @@ import PageCliente from './pageCliente';
 import PageGerente from './pageGerente';
 import PageVendedor from './pageVendedor';
 import PageInventoria from './pageInventoria';
-import Servicios from './servicios';
+import Servicios from './servicios/servicios';
 
 export default class AppMain extends Component {
 
