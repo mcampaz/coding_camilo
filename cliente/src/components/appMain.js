@@ -17,6 +17,7 @@ import PageVendedor from './pageVendedor';
 import PageInventoria from './pageInventoria';
 import Servicios from './servicios/servicios';
 import Catalogo from './catalogo/catalogo';
+import Clientes from './clientes/clientes';
 
 export default class AppMain extends Component {
 
@@ -58,6 +59,7 @@ export default class AppMain extends Component {
             {!this.state.token && <Redirect from="/inventoria" to="/login" exact />}
             {!this.state.token && <Redirect from="/servicios" to="/login" exact />}
             {!this.state.token && <Redirect from="/catalogo" to="/login" exact />}
+            {!this.state.token && <Redirect from="/clientes" to="/login" exact />}
             {this.state.token && <Redirect from="/login" to="/paginaPrincipal" exact />}
 
             {!this.state.token && <Route exact path="/login" component={Login} />}
@@ -70,6 +72,7 @@ export default class AppMain extends Component {
             {this.state.token && <Route path="/inventoria" component={PageInventoria} />}
             {this.state.token && <Route path="/servicios" component={Servicios} />}
             {this.state.token && <Route path="/catalogo" component={Catalogo} />}
+            {this.state.token && <Route path="/clientes" component={Clientes} />}
           </Switch>
         </AuthContext.Provider>
       </Router>
