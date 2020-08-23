@@ -6,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import Image from "react-bootstrap/Image";
 import ImgServicios from "../../assets/img/serviciosHeader.jpg";
-import { gql, useQuery } from "@apollo/client";
+import { gql, useQuery, useMutation } from "@apollo/client";
 
 import CrearServicio from "./crearServicio";
 
@@ -20,11 +20,22 @@ const MOSTRAR_SERVICIOS = gql`
   }
 `;
 
+const ELIMINAR_SERVICIO = gql`
+  mutation DeleteServicio($id: ID!) {
+    deleteServicio(_id: $id)
+  }
+`;
+
 function Servicios() {
-  const { loading, error, data, refetch  } = useQuery(MOSTRAR_SERVICIOS);
+  const { loading, error, data, refetch } = useQuery(MOSTRAR_SERVICIOS);
+  const [deleteServicio] = useMutation(ELIMINAR_SERVICIO);
 
   if (loading) return "Loading...";
   if (error) return `Error! ${error.message}`;
+
+  const eliminarServicio = (obj) => {
+    deleteServicio({ variables: { id: obj._id } });
+  };
 
   refetch();
 
@@ -50,7 +61,17 @@ function Servicios() {
                   <div className="row">
                     <div className="col-4">
                       {(context.Rol === "Administrador" ||
-                        context.Rol === "Gerente") && <CrearServicio />}
+                        context.Rol === "Gerente") && (
+                        <>
+                          <CrearServicio />{" "}
+                          <Button
+                            variant="success"
+                            onClick={() => refetch()}
+                          >
+                            Refresh
+                          </Button>
+                        </>
+                      )}
                     </div>
                     {data.servicios.map((servicio, i) => (
                       <div key={i} className="col-12 mt-3">
@@ -63,7 +84,12 @@ function Servicios() {
                                   <Button variant="warning" className="mr-1">
                                     Editar
                                   </Button>
-                                  <Button variant="danger">Eliminar</Button>
+                                  <Button
+                                    variant="danger"
+                                    onClick={(e) => eliminarServicio(servicio)}
+                                  >
+                                    Eliminar
+                                  </Button>
                                 </div>
                               </div>
                             </Card.Header>
@@ -78,6 +104,8 @@ function Servicios() {
                     ))}
                   </div>
                 </section>
+                <br />
+                <br />
               </Container>
             </>
           );
