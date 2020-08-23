@@ -47,11 +47,27 @@ const resolver = {
       } else {
         bool = true;
       }
-      return true;
+      return bool;
     } catch (err) {
       throw err;
     }
   },
+
+  deleteServicio: async(args) => {
+      try {
+          let bool = false;
+          const servicio = await Servicio.findByIdAndDelete({_id: args._id})
+          console.log(servicio);
+          if(!servicio){
+            throw new Error('Hubo un error y no se pudo eliminar');
+          } else {
+            bool = true;
+          }
+          return bool;
+      } catch (err){
+          throw err;
+      }
+  }
 };
 
 module.exports.resolver = resolver;

@@ -82,6 +82,7 @@ type RootMutation {
     register(registerInput: registerInput): User!
     createServicio(createServicioInput: createServicioInput): Servicio!
     updateServicio(updateServicioInput: updateServicioInput): Boolean!
+    deleteServicio(_id: ID!): Boolean!
 }
 
 schema {
