@@ -52,7 +52,7 @@ export default class PaginaPrincipal extends Component {
                       </Link>
                     </div>
                     <div className="col-4">
-                      <Link to="/" className="text-link">
+                      <Link to="/catalogo" className="text-link">
                         <Card className="animacionBtn">
                           <Card.Img
                             variant="top"
