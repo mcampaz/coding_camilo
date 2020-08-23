@@ -28,6 +28,30 @@ const resolver = {
       throw err;
     }
   },
+
+  updateServicio: async (args) => {
+    try {
+      let bool = false;
+      const servicio = await Servicio.findByIdAndUpdate(
+        { _id: args.updateServicioInput._id },
+        {
+          $set: {
+            Title: args.updateServicioInput.Title,
+            Description: args.updateServicioInput.Description,
+            updateDate: new Date(),
+          },
+        }
+      );
+      if (!servicio) {
+        throw new Error("Error al actualizar servicio");
+      } else {
+        bool = true;
+      }
+      return true;
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
 module.exports.resolver = resolver;

@@ -63,6 +63,12 @@ input createServicioInput {
     Description: String!    @constraint(minLength: 5, maxLength: 255)
 }
 
+input updateServicioInput {
+    _id: ID!
+    Title: String!          @constraint(minLength: 5, maxLength: 50)
+    Description: String!    @constraint(minLength: 5, maxLength: 255)
+}
+
 type RootQuery {
     usuarios: [User!]!
     login(loginInput: loginInput): AuthData!
@@ -75,6 +81,7 @@ type RootMutation {
     updateUser(updateInput: updateInput): Boolean!
     register(registerInput: registerInput): User!
     createServicio(createServicioInput: createServicioInput): Servicio!
+    updateServicio(updateServicioInput: updateServicioInput): Boolean!
 }
 
 schema {
