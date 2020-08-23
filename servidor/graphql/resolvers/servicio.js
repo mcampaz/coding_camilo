@@ -57,7 +57,6 @@ const resolver = {
       try {
           let bool = false;
           const servicio = await Servicio.findByIdAndDelete({_id: args._id})
-          console.log(servicio);
           if(!servicio){
             throw new Error('Hubo un error y no se pudo eliminar');
           } else {
