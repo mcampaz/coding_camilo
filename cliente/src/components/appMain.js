@@ -12,7 +12,7 @@ import Login from "./login";
 import Register from "./register";
 import PaginaPrincipal from './paginaPrincipal';
 import PageCliente from './pageCliente';
-import PageGerente from './pageGerente';
+import PageGerente from './paginaGerente/pageGerente';
 import PageVendedor from './pageVendedor';
 import PageInventoria from './pageInventoria';
 import Servicios from './servicios/servicios';
