@@ -62,7 +62,7 @@ function Servicios() {
                   <div className="row">
                     <div className="col-4">
                       {(context.Rol === "Administrador" ||
-                        context.Rol === "Gerente") && (
+                        context.Rol === "Gerente" || context.Rol === "Inventoria") && (
                         <>
                           <CrearServicio />{" "}
                           <Button
