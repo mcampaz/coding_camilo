@@ -1,7 +1,10 @@
 const Servicio = require("../../models/servicios");
 
 const resolver = {
-  servicios: async () => {
+  servicios: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error("Unauthenticated");
+    }
     try {
       const servicios = await Servicio.find();
       return servicios.map((serv) => {
@@ -15,7 +18,10 @@ const resolver = {
     }
   },
 
-  createServicio: async (args) => {
+  createServicio: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error("Unauthenticated");
+    }
     try {
       const servicio = new Servicio({
         Title: args.createServicioInput.Title,
@@ -29,7 +35,10 @@ const resolver = {
     }
   },
 
-  updateServicio: async (args) => {
+  updateServicio: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error("Unauthenticated");
+    }
     try {
       let bool = false;
       const servicio = await Servicio.findByIdAndUpdate(
@@ -53,20 +62,23 @@ const resolver = {
     }
   },
 
-  deleteServicio: async(args) => {
-      try {
-          let bool = false;
-          const servicio = await Servicio.findByIdAndDelete({_id: args._id})
-          if(!servicio){
-            throw new Error('Hubo un error y no se pudo eliminar');
-          } else {
-            bool = true;
-          }
-          return bool;
-      } catch (err){
-          throw err;
+  deleteServicio: async (args, req) => {
+    if (!req.isAuth) {
+      throw new Error("Unauthenticated");
+    }
+    try {
+      let bool = false;
+      const servicio = await Servicio.findByIdAndDelete({ _id: args._id });
+      if (!servicio) {
+        throw new Error("Hubo un error y no se pudo eliminar");
+      } else {
+        bool = true;
       }
-  }
+      return bool;
+    } catch (err) {
+      throw err;
+    }
+  },
 };
 
 module.exports.resolver = resolver;
